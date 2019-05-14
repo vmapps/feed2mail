@@ -18,7 +18,7 @@ Modules could be installed using following commands:
 pip install -r requirements.txt
 ```
 ## Configuration
-Settings have to be changed using file **config.py** :
+Settings have to be changed using file **config-template.py** :
 ```
 # enable/disable debug mode
 DEBUG = False
@@ -48,5 +48,9 @@ RECIPIENTS = '<your_email_address>'
 #
 # email title to be used
 TITLE = '<pretty_nice_title>'
+```
+Then rename template file as config.py
+```
+mv config-template.py config.py
 ```
 
