@@ -1,4 +1,3 @@
-
 # enable/disable debug mode
 DEBUG = False
 
