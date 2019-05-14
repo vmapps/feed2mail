@@ -53,8 +53,8 @@ Then rename template file as config.py
 ```
 mv config-template.py config.py
 ```
-## Run output
-Once executed, the program will send output :
-- as HTML in email body
-- as HTML file attached to the email
-- as HTML to stderr if DEBUG node is enable
+## Outputs
+Once executed, the program will generate :
+- HTML code in email body
+- HTML file attached to the email
+- HTML code to stderr if DEBUG node is enable
