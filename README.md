@@ -42,8 +42,8 @@ PERIOD = 'yesterday'
 
 #
 # email sender and recipients to be used
-SENDER = '<your_email_address>'
-RECIPIENTS = '<your_email_address>'
+SENDER = '<sender_email_address>'
+RECIPIENTS = '<recipients_email_address>'
 
 #
 # email title to be used
