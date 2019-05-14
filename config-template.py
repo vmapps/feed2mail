@@ -1,34 +1,27 @@
-#!/usr/bin/env python
 
-#
-# DEBUG - enable/disable debug mode
+# enable/disable debug mode
 DEBUG = False
 
-#
-# SMTP Settings
+# SMTP settings
 SMTP_HOST = '<your_ISP_SNMTP_server>'
 SMTP_PORT = 25
 SMTP_USER = '<your_user>'
 SMTP_PASS = '<your_password>'
 
-#
-# SOURCES for the feeds
+# feeds URL as sources
 SOURCES = [
     'http://feeds.arstechnica.com/arstechnica/security/',
     'https://nakedsecurity.sophos.com/feed/',
     'https://www.theregister.co.uk/security/headlines.atom'
 ]
 
-#
-# PERIOD - period of posts to take into consideration
+# period of posts to take into consideration
 # values: all, today, yesterday
 PERIOD = 'yesterday'
 
-#
-# FROM - email header used for email
+# email sender and recipients to be used
 SENDER = '<your_email_address>'
 RECIPIENTS = '<your_email_address>'
 
-#
-# TITLE - email header used for email
+# email title to be used
 TITLE = '<pretty_nice_title>'
