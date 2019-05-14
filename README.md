@@ -1,5 +1,5 @@
 # feed2mail
-News feed sent to your mailbox
+News feeds sent to your mailbox
 
 ## Purpose 
 Purpose of this very simple tool is to :
