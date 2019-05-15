@@ -15,7 +15,7 @@ Following python modules are required :
 
 Modules could be installed using following commands:
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 ## Configuration
 Settings have to be changed using file **config-template.py** :
@@ -55,6 +55,9 @@ Then rename template file as config.py
 mv config-template.py config.py
 ```
 ## Outputs
+```
+$ newsletter.py
+```
 Once executed, the program will generate :
 - HTML code in email body
 - HTML file attached to the email
