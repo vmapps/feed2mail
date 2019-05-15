@@ -4,6 +4,7 @@ DEBUG = False
 # SMTP settings
 SMTP_HOST = '<your_ISP_SNMTP_server>'
 SMTP_PORT = 25
+SMTP_SSL  = False
 SMTP_USER = '<your_user>'
 SMTP_PASS = '<your_password>'
 

@@ -24,14 +24,12 @@ else:
   sys.stderr.write( '[ERROR] no feed sources' )
   sys.exit(0)
 
-sys.exit(0)
-
 if config.RECIPIENTS:
   dt1 = datetime.datetime.today().strftime('%d/%m/%Y')
   dt2 = datetime.datetime.today().strftime('%Y%m%d')
 
-  e = utils.email( config.SMTP_HOST, config.SMTP_PORT, config.SMTP_USER, config.SMTP_PASS )
-  e.header( config.SENDER, config.RECIPIENTS, '%s %s' % (config.TITLE.dt1) )
+  e = utils.email( config.SMTP_HOST, config.SMTP_PORT, config.SMTP_SSL, config.SMTP_USER, config.SMTP_PASS )
+  e.header( config.SENDER, config.RECIPIENTS, '%s %s' % (config.TITLE,dt1) )
   e.body( feed.html.encode('utf8') )
   e.attachment( feed.html.encode('utf8'), 'newsletter-%s.html' % dt2 )
   e.send()

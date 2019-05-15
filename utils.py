@@ -24,10 +24,11 @@ import urlparse
 # --------------------------------------------------
 class email:
 
-    def __init__(self,host,port,user,password):
+    def __init__(self,host,port,ssl,user,password):
         # Private members
         self.__host = host
         self.__port = port
+        self.__ssl  = ssl
         self.__user = user
         self.__pass = password
         self.__msg = MIMEMultipart('alternative')
@@ -55,12 +56,27 @@ class email:
 
     def send(self):
         # Create the server connection
-        server = smtplib.SMTP_SSL(host=self.__host ,port=self.__port )
-        if self.__user and self.__pass : 
-            server.login(self.__user, self.__pass)
-        server.sendmail(self.__msg['From'], self.__msg['To'], self.__msg.as_string())
-        server.quit()
-        sys.stderr.write( "Successfully sent email message to %s\n" % (self.__msg['To']) )
+        try:
+            if self.__ssl:
+                server = smtplib.SMTP_SSL(host=self.__host ,port=self.__port )
+            else:
+                server = smtplib.SMTP(host=self.__host ,port=self.__port )
+        except socket.error as e:
+            sys.stderr.write( '[ERROR] when connecting to %s:%d\n' % (self.__host,self.__port) )
+            sys.exit(1)
+        except:
+            sys.stderr.write( '[ERROR] when send email using %s:%d\n' % (self.__host,self.__port) )
+
+        try:
+            if self.__user and self.__pass: 
+               server.login(self.__user, self.__pass)
+            server.sendmail(self.__msg['From'], self.__msg['To'], self.__msg.as_string())
+            server.quit()
+        except:
+            sys.stderr.write( '[ERROR] unable to send email from %s\n' % self.__msg['From'] )
+            sys.exit(1)
+
+        sys.stderr.write( '[INFO] message successfully sent to %s\n' % self.__msg['To'] )
 
 # --------------------------------------------------
 # Class feed
