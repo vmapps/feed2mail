@@ -57,8 +57,10 @@ mv config-template.py config.py
 ## Outputs
 ```
 $ newsletter.py
+[INFO] message successfully sent to *****@*****.***
 ```
 Once executed, the program will generate :
 - HTML code in email body
 - HTML file attached to the email
 - HTML code to stderr if DEBUG node is enable
+- success/error messages to stderr
