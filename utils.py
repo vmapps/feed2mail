@@ -167,7 +167,6 @@ class feed:
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="border-collapse:collapse;">
         <tr>
             <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
-                <!-- <hr style="height:10px; border:0; box-shadow:0 10px 10px -10px #8c8b8b inset;" /> -->
                 <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;"/>
                 <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase;">%s</span>
             </td>
