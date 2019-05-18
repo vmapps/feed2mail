@@ -101,7 +101,6 @@ class feed:
             <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
                 <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
-                <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" />
             </head>
             <body style="margin:0; padding:0;">
         '''
@@ -110,11 +109,11 @@ class feed:
         self.time = time.time() - self.time
 
         self.html = self.html + '''   
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="650" style="color:#c0c3c6; border-collapse:collapse;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="color:#c0c3c6; border-collapse:collapse;">
                 <tr>
                     <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
                     <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;" />
-                    <span style="font-family:Roboto Condensed; font-size:1.1em; text-transform:uppercase; color=#c0c3c6;">Sources checked (in %.2f secs)</span>
+                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase; color=#c0c3c6;">Sources checked (in %.2f secs)</span>
                     </td>
                 </tr>
         ''' % (self.time)
@@ -125,10 +124,10 @@ class feed:
 
         self.html = self.html + '''   
                 <tr>
-                    <td bgcolor="#ffffff" width=50>
+                    <td bgcolor="#ffffff" width="50px">
                     </td>
                     <td bgcolor="#ffffff" style="padding:0; word-break:break-all;"></p>
-                        <p style="font-family:Roboto Condensed; font-size:0.9em;">%s</p>
+                        <p style="font-family:Tahoma, Geneva, sans-serif; font-size:0.9em;">%s</p>
                     </td>
                 </tr>
                 </table>
@@ -152,11 +151,11 @@ class feed:
         #     onerror='this.onerror=null;this.src=\'data:image/png;base64,%s\';' % base64.b64encode(fh.read())
 
         if self.feed.get('image'):
-            self.feed.icon = '<img src="%s" width=48 title="%s"/>' % (self.feed.image.href, self.feed.title)
+            self.feed.icon = '<img src="%s" width="48" title="%s"/>' % (self.feed.image.href, self.feed.title)
         else:
             # self.feed.icon = 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Generic_Feed-icon.png'    
             onerror='this.onerror=null;this.src=\'https://upload.wikimedia.org/wikipedia/commons/e/e8/Generic_Feed-icon.png\';'
-            self.feed.icon = '<img src="%s" width=48 title="%s" onerror="%s" />' % (urlparse.urljoin(self.url,'/')+'favicon.ico', self.feed.title, onerror)
+            self.feed.icon = '<img src="%s" width="48" title="%s" onerror="%s" />' % (urlparse.urljoin(self.url,'/')+'favicon.ico', self.feed.title, onerror)
 
         if period=='today':         check = datetime.datetime.today().strftime('%Y-%m-%d')
         elif period=='yesterday':   check = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
@@ -165,12 +164,12 @@ class feed:
         found = False
 
         _html = _html + '''
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="650" style="border-collapse:collapse;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="border-collapse:collapse;">
         <tr>
             <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
                 <!-- <hr style="height:10px; border:0; box-shadow:0 10px 10px -10px #8c8b8b inset;" /> -->
                 <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;"/>
-                <span style="font-family:Roboto Condensed; font-size:1.1em; text-transform:uppercase;">%s</span>
+                <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase;">%s</span>
             </td>
         </tr>
         ''' % (self.feed.title)
@@ -196,10 +195,10 @@ class feed:
 
         return '''
         <tr>
-            <td bgcolor="#ffffff" width=50>
+            <td bgcolor="#ffffff" width="50px">
             </td>
             <td bgcolor="#ffffff" style="padding:0; word-break:break-all;">
-                <p style="font-family:Roboto Condensed; text-align:justify;">
+                <p style="font-family:Tahoma, Geneva, sans-serif; text-align:justify;">
                 <span style="font-size:1.0em; text-transform:uppercase;"><a href="%s" style="color:#000000; text-decoration:none;"><b>%s</b></a></span><br/>
                 <span style="font-size:0.8em;"><i>%s</i></span><br/>
                 <span style="font-size:0.9em;">%s</span>
