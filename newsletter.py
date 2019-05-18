@@ -1,35 +1,40 @@
 #!/usr/bin/env python
 
-import config
 import datetime
+import json
+import os
 import sys
 import utils
 
-if config.SOURCES:
+with open( os.path.dirname(__file__)+'/config.json','r') as fh:
+  cfg = json.load(fh)
+fh.close()
+
+if cfg.get('feeds.sources'):
   feed = utils.feed()
   feed.header()
 
-  for idx,url in enumerate(config.SOURCES):
-    sys.stderr.write( '[%0d/%0d]\tRetrieving %s ...\n' %(idx+1,len(config.SOURCES),url) )
+  for idx,url in enumerate( cfg['feeds.sources'] ):
+    sys.stderr.write( '[%0d/%0d]\tRetrieving %s ...\n' %(idx+1,len(cfg['feeds.sources']),url) )
 
     feed.get(url)
-    feed.parse( config.PERIOD )
+    feed.parse( cfg['feeds.period'] )
 
-  feed.footer( config.SOURCES )
+  feed.footer( cfg['feeds.sources'] )
 
-  if config.DEBUG:
+  if cfg.get('debug'):
     print feed.html.encode('utf8')
     # exit()
 else:
   sys.stderr.write( '[ERROR] no feed sources' )
   sys.exit(0)
 
-if config.RECIPIENTS:
+if cfg.get('email.recipients'):
   dt1 = datetime.datetime.today().strftime('%d/%m/%Y')
   dt2 = datetime.datetime.today().strftime('%Y%m%d')
 
-  e = utils.email( config.SMTP_HOST, config.SMTP_PORT, config.SMTP_SSL, config.SMTP_USER, config.SMTP_PASS )
-  e.header( config.SENDER, config.RECIPIENTS, '%s %s' % (config.TITLE,dt1) )
+  e = utils.email( cfg['smtp.host'], cfg['smtp.port'], cfg['smtp.ssl'], cfg['smtp.user'], cfg['smtp.pass'] )
+  e.header( cfg['email.sender'], cfg['email.recipient'], '%s %s' % (cfg['email.title'],dt1) )
   e.body( feed.html.encode('utf8') )
   e.attachment( feed.html.encode('utf8'), 'newsletter-%s.html' % dt2 )
   e.send()

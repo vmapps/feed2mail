@@ -1,0 +1,17 @@
+{
+    "debug": false,
+    "smtp.host": "<your_ISP_SNMTP_server>",
+    "smtp.port": 465,
+    "smtp.ssl": true,
+    "smtp.user": "<your_user>",
+    "smtp.pass": "<your_password>",
+    "feeds.sources": [
+        "http://feeds.arstechnica.com/arstechnica/security/",
+        "https://www.techworm.net/category/security-and-hacking-news/feed",
+        "https://nakedsecurity.sophos.com/feed/"
+    ],
+    "feeds.period": "yesterday",
+    "email.sender": "<sender_email_address>",
+    "email.recipient": "<recipient_email_address>",
+    "email.title": "<pretty_nice_title>"
+}
