@@ -30,11 +30,10 @@ else:
   sys.exit(0)
 
 if config.get('email.recipient'):
-  dt1 = datetime.datetime.today().strftime('%d/%m/%Y')
-  dt2 = datetime.datetime.today().strftime('%Y%m%d')
+  dt = datetime.datetime.today()
 
   e = utils.email( config['smtp.host'], config['smtp.port'], config['smtp.ssl'], config['smtp.user'], config['smtp.pass'] )
-  e.header( config['email.sender'], config['email.recipient'], '%s %s' % (config['email.title'],dt1) )
+  e.header( config['email.sender'], config['email.recipient'], '%s %s' % (config['email.title'],dt.strftime('%d/%m/%Y')) )
   e.body( feed.html.encode('utf8') )
-  e.attachment( feed.html.encode('utf8'), 'newsletter-%s.html' % dt2 )
+  e.attachment( feed.html.encode('utf8'), 'newsletter-%s.html' % dt.strftime('%Y%m%d') )
   e.send()
