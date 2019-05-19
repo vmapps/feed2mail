@@ -1,14 +1,26 @@
 #!/usr/bin/env python
 
+import argparse
 import datetime
 import json
 import os
+import pprint
 import sys
 import utils
 
 with open( os.path.dirname(__file__)+'/config.json','r') as fh:
   config = json.load(fh)
 fh.close()
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-d','--debug', help='force debug mode', default=False, action='store_true')
+parser.add_argument('-o', help='output file name', metavar='<filename>', action='store')
+args = parser.parse_args()
+
+if args.debug:
+  config['debug'] = True
+if args.o:
+  config['output.file'] = args.o
 
 if config.get('feeds.sources'):
   feed = utils.feed()
@@ -22,9 +34,11 @@ if config.get('feeds.sources'):
 
   feed.footer( config['feeds.sources'] )
 
-  if config.get('debug'):
-    print feed.html.encode('utf8')
-    # exit()
+  if config.get('output.file'):
+    with open( config['output.file'],'w') as fh:
+      fh.write( feed.html.encode('utf8') )
+    fh.close()
+
 else:
   sys.stderr.write( '[ERROR] no feed sources' )
   sys.exit(0)

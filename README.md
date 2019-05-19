@@ -47,6 +47,15 @@ Then rename template file as config.json
 ```
 mv config-template.json config.json
 ```
+## Usage
+```
+usage: newsletter.py [-h] [-d] [-o <filename>]
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -d, --debug    force debug mode
+  -o <filename>  output file name
+```
 ## Outputs
 ```
 $ newsletter.py
@@ -55,5 +64,5 @@ $ newsletter.py
 Once executed, the program will generate :
 - HTML code in email body
 - HTML file attached to the email
-- HTML code to stderr if DEBUG node is enable
+- HTML code to <filename> if output option is used
 - success/error messages to stderr
