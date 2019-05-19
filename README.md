@@ -49,7 +49,7 @@ mv config-template.json config.json
 ```
 ## Usage
 ```
-usage: newsletter.py [-h] [-d] [-c <filename>] [-o <filename>]
+usage: feed2mail.py [-h] [-d] [-c <filename>] [-o <filename>]
 
 optional arguments:
   -h, --help     show this help message and exit
@@ -59,7 +59,7 @@ optional arguments:
 ```
 ## Outputs
 ```
-$ newsletter.py
+$ feed2mail.py
 [INFO] message successfully sent to *****@*****.***
 ```
 Once executed, the program will generate :
