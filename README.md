@@ -49,11 +49,12 @@ mv config-template.json config.json
 ```
 ## Usage
 ```
-usage: newsletter.py [-h] [-d] [-o <filename>]
+usage: newsletter.py [-h] [-d] [-c <filename>] [-o <filename>]
 
 optional arguments:
   -h, --help     show this help message and exit
-  -d, --debug    force debug mode
+  -d, --debug    force debug mode (not used yet)
+  -c <filename>  config file name
   -o <filename>  output file name
 ```
 ## Outputs
