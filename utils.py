@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-# --------------------------------------------------
-# Import required packages
+# import required packages
 # --------------------------------------------------
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -19,13 +18,12 @@ import sys
 import time
 import urlparse
 
-# --------------------------------------------------
-# Class email
+# class email
 # --------------------------------------------------
 class email:
 
+    # initialize class object
     def __init__(self,host,port,ssl,user,password):
-        # Private members
         self.__host = host
         self.__port = port
         self.__ssl  = ssl
@@ -33,20 +31,19 @@ class email:
         self.__pass = password
         self.__msg = MIMEMultipart('alternative')
 
+    # setup email header
     def header(self,sender,recipient,subject):
-        # Create message object instance
-        # Declare message elements
         self.__msg['From']    = sender
         self.__msg['To']      = recipient
         self.__msg['Subject'] = subject
 
+    # setup email body
     def body(self,body):
-        # According to RFC 2046, the last part of a multipart message, in this case the HTML message, is best and preferred.
         #msg.attach( MIMEText(text,'plain') )
         self.__msg.attach( MIMEText(body,'html') )
 
+    # setup email attachment 
     def attachment(self,content,filename):
-        # instance of MIMEBase and named as p 
         p = MIMEBase('application', 'octet-stream')
         p.set_payload(content)
         encoders.encode_base64(p) 
@@ -54,8 +51,9 @@ class email:
         # attach the instance 'p' to instance 'msg' 
         self.__msg.attach(p)
 
+    # connect to SMTP server and send email
     def send(self):
-        # Create the server connection
+        # according to SMTP settings use SSL or not to connect
         try:
             if self.__ssl:
                 server = smtplib.SMTP_SSL(host=self.__host ,port=self.__port )
@@ -66,7 +64,7 @@ class email:
             sys.exit(1)
         except:
             sys.stderr.write( '[ERROR] when send email using %s:%d\n' % (self.__host,self.__port) )
-
+        # log into SMTP server, send and quit
         try:
             if self.__user and self.__pass: 
                server.login(self.__user, self.__pass)
@@ -75,26 +73,27 @@ class email:
         except:
             sys.stderr.write( '[ERROR] unable to send email from %s\n' % self.__msg['From'] )
             sys.exit(1)
-
+        # all done
         sys.stderr.write( '[INFO] message successfully sent to %s\n' % self.__msg['To'] )
 
-# --------------------------------------------------
-# Class feed
+# class feed
 # --------------------------------------------------
 class feed:
 
+    # initialize class object
     def __init__(self):
         self.html = ''
         self.time = time.time()
 
+    # download content from URL
     def get(self,url):
         self.url = url
         self.data = feedparser.parse(self.url)
-        # Data Feed and Data Entries
         self.feed = self.data.feed
         self.entries = self.data.entries
         #print self.data.data
 
+    # setup HTML content header
     def header(self):
         self.html = self.html + '''
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -105,9 +104,11 @@ class feed:
             <body style="margin:0; padding:0;">
         '''
 
+    # setup HTML content footer
     def footer(self,sources):
+        # set execution time as current time - start time
         self.time = time.time() - self.time
-
+        # set HTML block
         self.html = self.html + '''   
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="color:#c0c3c6; border-collapse:collapse;">
                 <tr>
@@ -117,11 +118,11 @@ class feed:
                     </td>
                 </tr>
         ''' % (self.time)
-
+        # add feed sources as list in HTML block
         buffer = ''
         for s in sources:
             buffer = buffer + s + '<br/>\n'
-
+        # append to HTML block
         self.html = self.html + '''   
                 <tr>
                     <td bgcolor="#ffffff" width="50px">
@@ -132,37 +133,30 @@ class feed:
                 </tr>
                 </table>
         ''' % (buffer)
-
+        # close HTML content
         self.html = self.html + '''   
             </body>
             </html>
         '''
 
+    # parse feed content according to period asked
     def parse(self,period=''):
-        # Feed Updated Parsed Time and Date
-        # fupt = self.feed.updated_parsed
-        # fupd = '%04d-%02d-%02d' % (fupt.tm_year, fupt.tm_mon, fupt.tm_mday)
-        # Current Date and Previous Day
-        # curd = datetime.datetime.today().strftime('%Y-%m-%d')
-        # pred = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
         _html = ''
-
-        # with open("feed.png", "rb") as fh:
-        #     onerror='this.onerror=null;this.src=\'data:image/png;base64,%s\';' % base64.b64encode(fh.read())
-
+        found = False
+        # [NOT USED] if feed contains image
         if self.feed.get('image'):
             self.feed.icon = '<img src="%s" width="48" title="%s"/>' % (self.feed.image.href, self.feed.title)
         else:
-            # self.feed.icon = 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Generic_Feed-icon.png'    
             onerror='this.onerror=null;this.src=\'https://upload.wikimedia.org/wikipedia/commons/e/e8/Generic_Feed-icon.png\';'
             self.feed.icon = '<img src="%s" width="48" title="%s" onerror="%s" />' % (urlparse.urljoin(self.url,'/')+'favicon.ico', self.feed.title, onerror)
-
-        if period=='today':         check = datetime.datetime.today().strftime('%Y-%m-%d')
-        elif period=='yesterday':   check = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
-        else:                       check = True
-
-        found = False
-
+        # check for period to check and to keep for content
+        if period=='today':
+            check = datetime.datetime.today().strftime('%Y-%m-%d')
+        elif period=='yesterday':
+            check = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+        else:
+            check = True
+        # setup HTML content with feed title
         _html = _html + '''
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="border-collapse:collapse;">
         <tr>
@@ -172,26 +166,27 @@ class feed:
             </td>
         </tr>
         ''' % (self.feed.title)
-
+        # for each post in feed
         for post in self.entries:
-            # Entry Updated Parsed Time and Date
             eupt = post.updated_parsed
             eupd = '%04d-%02d-%02d' % (eupt.tm_year, eupt.tm_mon, eupt.tm_mday)
-
+            # keep content only if it matches petiod
             if check==True or eupd==check:
                 _html = _html + self.format(post)
                 found = True
-
+        # if nothing found
         if not found:
             _html = '' 
         else:
             _html = _html + '\n</table>\n'
-
+        # append HTML content to object
         self.html = self.html + _html
 
+    # format feed post as HTML
     def format(self,post):
+        # regexp to remove HTML tags from feed fields 
         TAG_RE = re.compile(r'<[^>]+>')
-
+        # format HTML content
         return '''
         <tr>
             <td bgcolor="#ffffff" width="50px">
@@ -206,9 +201,5 @@ class feed:
         </tr>
         ''' % (post.link, post.title, post.updated, TAG_RE.sub('',post.summary) )
 
-
-
-
-
-
-# --------------------------------------------------
+#
+# end
