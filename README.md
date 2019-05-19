@@ -54,7 +54,7 @@ usage: newsletter.py [-h] [-d] [-c <filename>] [-o <filename>]
 optional arguments:
   -h, --help     show this help message and exit
   -d, --debug    force debug mode (not used yet)
-  -c <filename>  config file name
+  -c <filename>  config file name (defaut: config.json)
   -o <filename>  output file name
 ```
 ## Outputs

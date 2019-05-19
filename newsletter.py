@@ -14,7 +14,7 @@ import utils
 # set command-line arguments and parsing options
 parser = argparse.ArgumentParser()
 parser.add_argument('-d','--debug', help='force debug mode (not used yet)', default=False, action='store_true')
-parser.add_argument('-c', help='config file name', metavar='<filename>', action='store')
+parser.add_argument('-c', help='config file name (defaut: config.json)', metavar='<filename>', action='store')
 parser.add_argument('-o', help='output file name', metavar='<filename>', action='store')
 args = parser.parse_args()
 
