@@ -5,7 +5,7 @@
 </head>
 <body style="margin:0; padding:0;">
 
-<!-- SOURCE X -->
+<!-- POSTS -->
 {% for d in data %}
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="border-collapse:collapse;">
     <tr>
@@ -22,7 +22,7 @@
         </td>
         <td bgcolor="#ffffff" style="padding:0; word-break:break-all;">
             <p style="font-family:Tahoma, Geneva, sans-serif; text-align:justify;">
-            <span style="font-size:1.0em; text-transform:uppercase;"><a href="{{ p.link }}" style="color:#000000; text-decoration:none;"><b>>{{ p.title }}</b></a></span><br/>
+            <span style="font-size:0.9em; text-transform:uppercase;"><a href="{{ p.link }}" style="color:#000000; text-decoration:none;"><b>{{ p.title }}</b></a></span><br/>
             <span style="font-size:0.8em;"><i>{{ p.updated }}</i></span><br/>
             <span style="font-size:0.9em;">{{ p.summary|striptags }}</span>
             </p>
@@ -37,10 +37,9 @@
     <tr>
         <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
         <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;" />
-        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase; color=#c0c3c6;">Sources checked (in {{ time }} secs)</span>
+        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase; color=#c0c3c6;">Feed Sources (parsed in {{ time }} secs)</span>
         </td>
-    </tr>
-           
+    </tr>  
     <tr>
         <td bgcolor="#ffffff" width="50px">
         </td>
@@ -53,7 +52,17 @@
         </td>
     </tr>
 </table>
-           
+
+<!-- COPYRIGHT -->
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="color:#c0c3c6; border-collapse:collapse;">
+    <tr>
+        <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
+        <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;" />
+        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:0.7em; text-transform:uppercase; color=#c0c3c6;">https://github.com/vmapps/feed2mail</span>
+        </td>
+    </tr>
+</table>
+    
 </body>
 </html>
         

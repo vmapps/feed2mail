@@ -112,24 +112,5 @@ class feed:
                 self.posts.append(post) 
                 sys.stderr.write('\t- %s\n' % post.title )
 
-    # format feed post as HTML
-    def format(self,post):
-        # regexp to remove HTML tags from feed fields 
-        TAG_RE = re.compile(r'<[^>]+>')
-        # format HTML content
-        return '''
-        <tr>
-            <td bgcolor="#ffffff" width="50px">
-            </td>
-            <td bgcolor="#ffffff" style="padding:0; word-break:break-all;">
-                <p style="font-family:Tahoma, Geneva, sans-serif; text-align:justify;">
-                <span style="font-size:1.0em; text-transform:uppercase;"><a href="%s" style="color:#000000; text-decoration:none;"><b>%s</b></a></span><br/>
-                <span style="font-size:0.8em;"><i>%s</i></span><br/>
-                <span style="font-size:0.9em;">%s</span>
-                </p>
-            </td>
-        </tr>
-        ''' % (post.link, post.title, post.updated, TAG_RE.sub('',post.summary) )
-
 #
 # end
