@@ -67,7 +67,8 @@ if config.get('feeds.sources'):
     f.get(url)
     f.parse( config['feeds.period'] )
 
-    data.append( {'title':f.feed.title, 'posts':f.entries} )
+    if len(f.posts):
+      data.append( {'title':f.feed.title, 'posts':f.posts} )
 
   # render template with data
   html = tpl.render(
@@ -103,8 +104,8 @@ if config.get('email.recipient'):
   e.header( config['email.sender'], config['email.recipient'], '%s %s' % (config['email.title'],dt.strftime('%d/%m/%Y')) )
 
   # fit with HTML in body and attachment
-  e.body( feed.html.encode('utf8') )
-  e.attachment( feed.html.encode('utf8'), 'newsletter-%s.html' % dt.strftime('%Y%m%d') )
+  e.body( html.encode('utf8') )
+  e.attachment( html.encode('utf8'), 'newsletter-%s.html' % dt.strftime('%Y%m%d') )
 
   # finally send email
   e.send()

@@ -18,12 +18,13 @@
     {% for p in d.posts %}
     <tr>
         <td bgcolor="#ffffff" width="50px">
+            &nbsp;
         </td>
         <td bgcolor="#ffffff" style="padding:0; word-break:break-all;">
             <p style="font-family:Tahoma, Geneva, sans-serif; text-align:justify;">
             <span style="font-size:1.0em; text-transform:uppercase;"><a href="{{ p.link }}" style="color:#000000; text-decoration:none;"><b>>{{ p.title }}</b></a></span><br/>
             <span style="font-size:0.8em;"><i>{{ p.updated }}</i></span><br/>
-            <span style="font-size:0.9em;">{{ p.summary }}</span>
+            <span style="font-size:0.9em;">{{ p.summary|striptags }}</span>
             </p>
         </td>
     </tr>

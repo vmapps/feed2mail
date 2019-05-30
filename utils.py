@@ -91,6 +91,7 @@ class feed:
         self.data = feedparser.parse(self.url)
         self.feed = self.data.feed
         self.entries = self.data.entries
+        self.posts = []
         # pprint( self.data )
 
     # parse feed content according to period asked
@@ -107,9 +108,9 @@ class feed:
             eupt = post.updated_parsed
             eupd = '%04d-%02d-%02d' % (eupt.tm_year, eupt.tm_mon, eupt.tm_mday)
             # keep content only if it matches petiod
-            self.entries[idx]['keep'] = True if (check==True or eupd==check) else False
             if (check==True or eupd==check):
-                del( self.entries[idx] ) 
+                self.posts.append(post) 
+                sys.stderr.write('\t- %s\n' % post.title )
 
     # format feed post as HTML
     def format(self,post):
