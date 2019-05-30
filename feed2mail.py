@@ -4,10 +4,12 @@
 # imports required modules
 import argparse
 import datetime
+import jinja2
 import json
 import os
 import pprint
 import sys
+import time
 import utils
 
 #
@@ -15,6 +17,7 @@ import utils
 parser = argparse.ArgumentParser()
 parser.add_argument('-d','--debug', help='force debug mode (not used yet)', default=False, action='store_true')
 parser.add_argument('-c', help='config file name (defaut: config.json)', metavar='<filename>', action='store')
+parser.add_argument('-t', help='template file name (defaut: templates/feed2mail.html)', metavar='<filename>', action='store')
 parser.add_argument('-o', help='output file name', metavar='<filename>', action='store')
 args = parser.parse_args()
 
@@ -23,40 +26,55 @@ args = parser.parse_args()
 if args.debug:
   config['debug'] = True
 
-if args.c:
-  file_config = args.c
-else:
-  file_config = os.path.dirname(__file__) + '/config.json'
-
-if args.o:
-  file_output = args.o
-else:
-  file_output = None
+file_cfg = args.c if args.c else os.path.dirname(__file__) + '/config.json'
+file_out = args.o if args.o else None
+file_tpl = args.t if args.t else os.path.dirname(__file__) + '/templates/feed2mail.html'
 
 #
 # open configuration file
-with open( file_config,'r') as fh:
-  config = json.load(fh)
-fh.close()
+try:
+  with open( file_cfg,'r') as fh:
+    config = json.load(fh)
+  fh.close()
+except Exception as e:
+  sys.stderr.write( '[ERROR] reading configuration file %s\n' % file_cfg )
+  sys.exit(1)
+
+#
+# open template file
+try:
+  with open(file_tpl,'r') as fh:
+    tpl = jinja2.Template(fh.read())
+  fh.close()
+except Exception as e:
+  sys.stderr.write( '[ERROR] reading template file %s\n' % file_tpl )
+  sys.exit(1)
 
 #
 # walk through each feed sources
 if config.get('feeds.sources'):
 
-  # set a feed object and its header
-  feed = utils.feed()
-  feed.header()
+  start = time.time()
+  data = []
 
   # for each feed
   for idx,url in enumerate( config['feeds.sources'] ):
     sys.stderr.write( '[%0d/%0d]\tRetrieving %s ...\n' %(idx+1,len(config['feeds.sources']),url) )
 
+    # set a feed object
+    f = utils.feed()
     # get feed content from URL and parse according to period
-    feed.get(url)
-    feed.parse( config['feeds.period'] )
+    f.get(url)
+    f.parse( config['feeds.period'] )
 
-  # set footer content
-  feed.footer( config['feeds.sources'] )
+    data.append( {'title':f.feed.title, 'posts':f.entries} )
+
+  # render template with data
+  html = tpl.render(
+    data = data,
+    time = '%.2f' % (time.time()-start),
+    sources = config['feeds.sources']
+    )
 
 #
 # exit if no feed sources
@@ -66,11 +84,16 @@ else:
 
 #
 # if output option set then write HTML content to file
-if file_output is not None:
-  with open( file_output,'w') as fh:
-    fh.write( feed.html.encode('utf8') )
-  fh.close()
+if file_out is not None:
+  try:
+    with open( file_out,'w') as fh:
+      fh.write( html.encode('utf8') )
+    fh.close()
+  except Exception as e:
+    sys.stderr.write( '[ERROR] opening output file %s\n' % file_out )
+    sys.exit(1)
 
+sys.exit()
 #
 # if email recipient set then prepare to send email
 if config.get('email.recipient'):

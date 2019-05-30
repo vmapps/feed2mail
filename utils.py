@@ -91,64 +91,10 @@ class feed:
         self.data = feedparser.parse(self.url)
         self.feed = self.data.feed
         self.entries = self.data.entries
-        #print self.data.data
-
-    # setup HTML content header
-    def header(self):
-        self.html = self.html + '''
-            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-            <html xmlns="http://www.w3.org/1999/xhtml">
-            <head>
-                <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
-            </head>
-            <body style="margin:0; padding:0;">
-        '''
-
-    # setup HTML content footer
-    def footer(self,sources):
-        # set execution time as current time - start time
-        self.time = time.time() - self.time
-        # set HTML block
-        self.html = self.html + '''   
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="color:#c0c3c6; border-collapse:collapse;">
-                <tr>
-                    <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
-                    <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;" />
-                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase; color=#c0c3c6;">Sources checked (in %.2f secs)</span>
-                    </td>
-                </tr>
-        ''' % (self.time)
-        # add feed sources as list in HTML block
-        buffer = ''
-        for s in sources:
-            buffer = buffer + s + '<br/>\n'
-        # append to HTML block
-        self.html = self.html + '''   
-                <tr>
-                    <td bgcolor="#ffffff" width="50px">
-                    </td>
-                    <td bgcolor="#ffffff" style="padding:0; word-break:break-all;"></p>
-                        <p style="font-family:Tahoma, Geneva, sans-serif; font-size:0.9em;">%s</p>
-                    </td>
-                </tr>
-                </table>
-        ''' % (buffer)
-        # close HTML content
-        self.html = self.html + '''   
-            </body>
-            </html>
-        '''
+        # pprint( self.data )
 
     # parse feed content according to period asked
     def parse(self,period=''):
-        _html = ''
-        found = False
-        # [NOT USED] if feed contains image
-        if self.feed.get('image'):
-            self.feed.icon = '<img src="%s" width="48" title="%s"/>' % (self.feed.image.href, self.feed.title)
-        else:
-            onerror='this.onerror=null;this.src=\'https://upload.wikimedia.org/wikipedia/commons/e/e8/Generic_Feed-icon.png\';'
-            self.feed.icon = '<img src="%s" width="48" title="%s" onerror="%s" />' % (urlparse.urljoin(self.url,'/')+'favicon.ico', self.feed.title, onerror)
         # check for period to check and to keep for content
         if period=='today':
             check = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -156,31 +102,14 @@ class feed:
             check = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
         else:
             check = True
-        # setup HTML content with feed title
-        _html = _html + '''
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px" style="border-collapse:collapse;">
-        <tr>
-            <td colspan=2 bgcolor="#ffffff" style="padding:0; word-break:break-all;">
-                <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;"/>
-                <span style="font-family:Tahoma, Geneva, sans-serif; font-size:1.1em; text-transform:uppercase;">%s</span>
-            </td>
-        </tr>
-        ''' % (self.feed.title)
         # for each post in feed
-        for post in self.entries:
+        for (idx,post) in enumerate(self.entries):
             eupt = post.updated_parsed
             eupd = '%04d-%02d-%02d' % (eupt.tm_year, eupt.tm_mon, eupt.tm_mday)
             # keep content only if it matches petiod
-            if check==True or eupd==check:
-                _html = _html + self.format(post)
-                found = True
-        # if nothing found
-        if not found:
-            _html = '' 
-        else:
-            _html = _html + '\n</table>\n'
-        # append HTML content to object
-        self.html = self.html + _html
+            self.entries[idx]['keep'] = True if (check==True or eupd==check) else False
+            if (check==True or eupd==check):
+                del( self.entries[idx] ) 
 
     # format feed post as HTML
     def format(self,post):
