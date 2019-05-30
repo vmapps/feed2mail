@@ -93,7 +93,6 @@ if file_out is not None:
     sys.stderr.write( '[ERROR] opening output file %s\n' % file_out )
     sys.exit(1)
 
-sys.exit()
 #
 # if email recipient set then prepare to send email
 if config.get('email.recipient'):

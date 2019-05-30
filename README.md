@@ -11,6 +11,7 @@ Purpose of this very simple tool is to :
 Following python modules are required :
 - [email](https://docs.python.org/3/library/email.html)
 - [feedparser](https://pythonhosted.org/feedparser/)
+- [jinja2](http://jinja.pocoo.org/)
 - [smtplib](https://docs.python.org/3/library/smtplib.html)
 
 Modules could be installed using following commands:
@@ -55,6 +56,7 @@ optional arguments:
   -h, --help     show this help message and exit
   -d, --debug    force debug mode (not used yet)
   -c <filename>  config file name (defaut: config.json)
+  -t <filename>  template file name (defaut: templates/feed2mail.html)
   -o <filename>  output file name
 ```
 ## Outputs
