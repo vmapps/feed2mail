@@ -64,7 +64,7 @@ optional arguments:
 $ feed2mail.py
 [INFO] message successfully sent to *****@*****.***
 
-$ feed2mail.py -c /home/jdoe/.config/feed2mail.json -t templates/feed2mail-outlook.html -o /tmp/output.html
+$ feed2mail.py -c feed2mail.json -t templates/feed2mail-outlook.html -o /tmp/output.html
 [INFO] message successfully sent to *****@*****.***
 ```
 Once executed, the program will generate :
