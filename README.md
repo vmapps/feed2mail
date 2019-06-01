@@ -50,18 +50,21 @@ mv config-template.json config.json
 ```
 ## Usage
 ```
-usage: feed2mail.py [-h] [-d] [-c <filename>] [-o <filename>]
+usage: feed2mail.py [-h] [-d] [-c <filename>] [-o <filename>] [-t <filename>]
 
 optional arguments:
   -h, --help     show this help message and exit
   -d, --debug    force debug mode (not used yet)
-  -c <filename>  config file name (defaut: config.json)
-  -t <filename>  template file name (defaut: templates/feed2mail.html)
-  -o <filename>  output file name
+  -c <filename>  config file (defaut: config.json)
+  -t <filename>  template file (defaut: templates/feed2mail.html)
+  -o <filename>  output file
 ```
 ## Outputs
 ```
 $ feed2mail.py
+[INFO] message successfully sent to *****@*****.***
+
+$ feed2mail.py -c /home/jdoe/.config/feed2mail.json -t templates/feed2mail-outlook.html -o /tmp/output.html
 [INFO] message successfully sent to *****@*****.***
 ```
 Once executed, the program will generate :
