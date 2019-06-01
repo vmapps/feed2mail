@@ -38,6 +38,7 @@ try:
   fh.close()
 except Exception as e:
   sys.stderr.write( '[ERROR] reading configuration file %s\n' % file_cfg )
+  sys.stderr.write( '[ERROR] %s\n' % str(e) )
   sys.exit(1)
 
 #
@@ -48,6 +49,7 @@ try:
   fh.close()
 except Exception as e:
   sys.stderr.write( '[ERROR] reading template file %s\n' % file_tpl )
+  sys.stderr.write( '[ERROR] %s\n' % str(e) )
   sys.exit(1)
 
 #
@@ -92,6 +94,7 @@ if file_out is not None:
     fh.close()
   except Exception as e:
     sys.stderr.write( '[ERROR] opening output file %s\n' % file_out )
+    sys.stderr.write( '[ERROR] %s\n' % str(e) )
     sys.exit(1)
 
 #
