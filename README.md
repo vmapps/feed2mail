@@ -74,5 +74,5 @@ Once executed, the program will generate :
 - success/error messages to stderr
     
 ## Sample
-![newsletter](https://github.com/vmapps/samples/feed2mail.png)
+![newsletter](https://github.com/vmapps/feed2mail/samples/feed2mail.png)
 
