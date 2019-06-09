@@ -3,7 +3,7 @@ News feeds sent to your mailbox
 
 ## Purpose 
 Purpose of this very simple tool is to :
-- help retrieving news from diffrent ffeds (RSS, ATOM, XML, ...)
+- help retrieving news from different feeds (RSS, ATOM, XML, ...)
 - compile one of those that match a pediod (e.g. 'yesterday')
 - send articles as HTML document to some email recipients
 
