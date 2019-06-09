@@ -23,9 +23,6 @@ args = parser.parse_args()
 
 #
 # checks arguments and options
-if args.debug:
-  config['debug'] = True
-
 file_cfg = args.c if args.c else os.path.dirname(__file__) + '/config.json'
 file_out = args.o if args.o else None
 file_tpl = args.t if args.t else os.path.dirname(__file__) + '/templates/feed2mail.html'
@@ -40,6 +37,11 @@ except Exception as e:
   sys.stderr.write( '[ERROR] reading configuration file %s\n' % file_cfg )
   sys.stderr.write( '[ERROR] %s\n' % str(e) )
   sys.exit(1)
+
+#
+# overwrite debug config
+if args.debug:
+ config['debug'] = True
 
 #
 # open template file
