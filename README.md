@@ -72,3 +72,7 @@ Once executed, the program will generate :
 - HTML file attached to the email
 - HTML code to <filename> if output option is used
 - success/error messages to stderr
+    
+## Sample
+![newsletter](https://github.com/vmapps/samples/feed2mail.png)
+
