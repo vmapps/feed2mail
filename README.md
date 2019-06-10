@@ -19,7 +19,7 @@ Modules could be installed using following commands:
 $ pip install -r requirements.txt
 ```
 ## Configuration
-Settings have to be changed using file **config-template.json** :
+Settings have to be defined using JSON config file :
 ```
 # enable/disable debug mode
 "debug": [true|false]
@@ -44,7 +44,7 @@ Settings have to be changed using file **config-template.json** :
 "email.recipient": "<recipient_email_address>"
 "email.title": "<pretty_nice_title>"
 ```
-Then rename template file as config.json
+Do not forget to rename template file as `config.json`
 ```
 mv config-template.json config.json
 ```
