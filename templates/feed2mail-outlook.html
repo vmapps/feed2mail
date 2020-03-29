@@ -566,9 +566,9 @@
 
     <!-- POSTS -->
     {% for d in data %}
-    <table class=MsoNormalTable align="center" border=0 width=600 cellspacing=0 cellpadding=0 style='padding:0cm 5.4pt 0cm 5.4pt'>
+    <table class=MsoNormalTable align="center" border=0 width="600px" cellspacing=0 cellpadding=0 style='padding:0cm 5.4pt 0cm 5.4pt'>
         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-            <td width=600 colspan=2 valign=top style='width:600pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="600px" colspan=2 valign=top style='width:600pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;"/>
                 {{ m_font('Tahoma', 12, '<b>%s</b>'|format(d.title)|upper) }}
                 {{ m_break() }}
@@ -576,10 +576,10 @@
         </tr>
         {% for p in d.posts %}
         <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-            <td width=50 valign=top style='width:50pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="50px" valign=top style='width:50pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 {{ m_break() }}
             </td>
-            <td width=550 valign=top style='width:550pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="550px" valign=top style='width:550pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 {{ m_font('Tahoma', 11, '<a href="%s" style="color:#000000; text-decoration:none;"><b>%s</b></a>'|format(p.url,p.title)) }}
                 {{ m_font('Tahoma', 9, '<i>%s</i>'|format(p.updated)) }}
                 {{ m_font('Tahoma', 11, p.summary|striptags) }}
@@ -592,19 +592,19 @@
     {% endfor %}
 
     <!-- SOURCES -->
-   <table class=MsoNormalTable align="center" border=0 width=600 cellspacing=0 cellpadding=0 style='padding:0cm 5.4pt 0cm 5.4pt'>
+   <table class=MsoNormalTable align="center" border=0 width="600px" cellspacing=0 cellpadding=0 style='padding:0cm 5.4pt 0cm 5.4pt'>
         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-            <td width=600 colspan=2 valign=top style='width:600pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="600px" colspan=2 valign=top style='width:600pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 <hr style="border:dotted 1px #999999; border-width:3px 0 0 0;"/>
                 {{ m_font('Tahoma', 12, '<b>Feed Sources (parsed in %s secs)</b>'|format(time)|upper) }}
                 {{ m_break() }}
             </td>
         </tr>
         <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-            <td width=50 valign=top style='width:50pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="50px" valign=top style='width:50pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 {{ m_break() }}
             </td>
-            <td width=550 valign=top style='width:550pt;padding:0cm 5.4pt 0cm 5.4pt'>
+            <td width="550px" valign=top style='width:550pt;padding:0cm 5.4pt 0cm 5.4pt'>
                 <p class=MsoNormal><span style='font-family:"Tahoma",sans-serif;font-size:11.0pt'>
                     {% for url in sources %}
                         {{ '<a href="%s" style="color:#000000; text-decoration:none;">%s</a>'|format(url,url) }}<br/>
