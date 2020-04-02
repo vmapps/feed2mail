@@ -40,7 +40,7 @@ class email:
     # setup email body
     def body(self,body):
         #msg.attach( MIMEText(text,'plain') )
-        self.__msg.attach( MIMEText(body,'html') )
+        self.__msg.attach( MIMEText(body,'html','utf-8') )
 
     # setup email attachment 
     def attachment(self,content,filename):
