@@ -110,7 +110,7 @@ class feed:
             # keep content only if it matches petiod
             if (check==True or eupd==check):
                 self.posts.append(post) 
-                sys.stderr.write('\t- %s\n' % post.title )
+                sys.stderr.write('\t- %s\n' % (post.title).encode('utf-8') )
 
 #
 # end
