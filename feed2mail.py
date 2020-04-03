@@ -15,14 +15,16 @@ import utils
 #
 # set command-line arguments and parsing options
 parser = argparse.ArgumentParser()
+parser.add_argument('-a','--attachment', help='add HTML content as attachment', default=False, action='store_true')
 parser.add_argument('-d','--debug', help='force debug mode (not used yet)', default=False, action='store_true')
-parser.add_argument('-c', help='config file name (defaut: config.json)', metavar='<filename>', action='store')
-parser.add_argument('-t', help='template file name (defaut: templates/feed2mail.html)', metavar='<filename>', action='store')
-parser.add_argument('-o', help='output file name', metavar='<filename>', action='store')
+parser.add_argument('-c','--config', help='config file name (defaut: config.json)', metavar='<filename>', action='store')
+parser.add_argument('-t','--template', help='template file name (defaut: templates/feed2mail.html)', metavar='<filename>', action='store')
+parser.add_argument('-o','--output', help='output file name', metavar='<filename>', action='store')
 args = parser.parse_args()
 
 #
 # checks arguments and options
+file_att = args.a if args.a else False
 file_cfg = args.c if args.c else os.path.dirname(__file__) + '/config.json'
 file_out = args.o if args.o else None
 file_tpl = args.t if args.t else os.path.dirname(__file__) + '/templates/feed2mail.html'
@@ -110,7 +112,8 @@ if config.get('email.recipient'):
 
   # fit with HTML in body and attachment
   e.body( html.encode('utf8') )
-  e.attachment( html.encode('utf8'), 'newsletter-%s.html' % dt.strftime('%Y%m%d') )
+  if file_att:
+	  e.attachment( html.encode('utf8'), 'newsletter-%s.html' % dt.strftime('%Y%m%d') )
 
   # finally send email
   e.send()
