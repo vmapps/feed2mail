@@ -50,14 +50,18 @@ mv config-template.json config.json
 ```
 ## Usage
 ```
-usage: feed2mail.py [-h] [-d] [-c <filename>] [-o <filename>] [-t <filename>]
+usage: feed2mail.py [-h] [-a] [-d] [-c <filename>] [-o <filename>] [-t <filename>]
 
 optional arguments:
-  -h, --help     show this help message and exit
-  -d, --debug    force debug mode (not used yet)
-  -c <filename>  config file (defaut: config.json)
-  -t <filename>  template file (defaut: templates/feed2mail.html)
-  -o <filename>  output file
+  -h, --help            show this help message and exit
+  -a, --attachment      add HTML content as attachment
+  -d, --debug           force debug mode (not used yet)
+  -c <filename>, --config <filename>
+                        config file name (defaut: config.json)
+  -t <filename>, --template <filename>
+                        template file name (defaut: templates/feed2mail.html)
+  -o <filename>, --output <filename>
+                        output file name
 ```
 ## Outputs
 ```

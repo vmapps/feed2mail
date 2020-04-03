@@ -24,10 +24,10 @@ args = parser.parse_args()
 
 #
 # checks arguments and options
-file_att = args.a if args.a else False
-file_cfg = args.c if args.c else os.path.dirname(__file__) + '/config.json'
-file_out = args.o if args.o else None
-file_tpl = args.t if args.t else os.path.dirname(__file__) + '/templates/feed2mail.html'
+file_att = args.attachment if args.attachment else False
+file_cfg = args.config if args.config else os.path.dirname(__file__) + '/config.json'
+file_out = args.output if args.output else None
+file_tpl = args.template if args.template else os.path.dirname(__file__) + '/templates/feed2mail.html'
 
 #
 # open configuration file
