@@ -579,7 +579,7 @@
                 {{ m_break() }}
             </td>
             <td width="550px" valign=top style='width:550pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                {{ m_font('Tahoma', 11, '<a href="%s" style="color:#000000; text-decoration:none;"><b>%s</b></a>'|format(p.url,p.title)) }}
+                {{ m_font('Tahoma', 11, '<a href="%s" style="color:#000000; text-decoration:none;"><b>%s</b></a>'|format(p.link,p.title)) }}
                 {{ m_font('Tahoma', 9, '<i>%s</i>'|format(p.updated)) }}
                 {{ m_font('Tahoma', 11, p.summary|striptags) }}
                 {{ m_break() }}
