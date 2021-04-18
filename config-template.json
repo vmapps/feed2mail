@@ -1,4 +1,5 @@
 {
+    "help": "https://github.com/vmapps/feed2mail",
     "debug": false,
     "smtp.host": "<your_ISP_SNMTP_server>",
     "smtp.port": 465,
