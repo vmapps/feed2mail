@@ -23,13 +23,14 @@ import urlparse
 class email:
 
     # initialize class object
-    def __init__(self,host,port,ssl,user,password):
-        self.__host = host
-        self.__port = port
-        self.__ssl  = ssl
-        self.__user = user
-        self.__pass = password
-        self.__msg = MIMEMultipart('alternative')
+    def __init__(self,host,port,ssl,user,password,debug):
+        self.__host  = host
+        self.__port  = port
+        self.__ssl   = ssl
+        self.__user  = user
+        self.__pass  = password
+        self.__debug = debug
+        self.__msg   = MIMEMultipart('alternative')
 
     # setup email header
     def header(self,sender,recipient,subject):
@@ -66,9 +67,11 @@ class email:
             sys.stderr.write( '[ERROR] when send email using %s:%d\n' % (self.__host,self.__port) )
         # log into SMTP server, send and quit
         try:
+            if self.__debug:
+                server.set_debuglevel(1)
             if self.__user and self.__pass: 
                server.login(self.__user, self.__pass)
-            server.sendmail(self.__msg['From'], self.__msg['To'], self.__msg.as_string())
+            server.sendmail(self.__msg['From'], self.__msg['To'].split(','), self.__msg.as_string())
             server.quit()
         except:
             sys.stderr.write( '[ERROR] unable to send email from %s\n' % self.__msg['From'] )

@@ -43,7 +43,7 @@ except Exception as e:
 #
 # overwrite debug config
 if args.debug:
- config['debug'] = True
+  config['debug'] = True
 
 #
 # open template file
@@ -107,7 +107,14 @@ if config.get('email.recipient'):
   dt = datetime.datetime.today()
 
   # set email object and its header
-  e = utils.email( config['smtp.host'], config['smtp.port'], config['smtp.ssl'], config['smtp.user'], config['smtp.pass'] )
+  e = utils.email( 
+        host=config['smtp.host'],
+        port=config['smtp.port'], 
+        ssl=config['smtp.ssl'], 
+        user=config['smtp.user'], 
+        password=config['smtp.pass'],
+        debug=config['debug']
+      )
   e.header( config['email.sender'], config['email.recipient'], '%s %s' % (config['email.title'],dt.strftime('%d/%m/%Y')) )
 
   # fit with HTML in body and attachment
