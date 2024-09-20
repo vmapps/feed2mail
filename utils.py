@@ -16,7 +16,6 @@ import re
 import smtplib
 import sys
 import time
-import urlparse
 
 # class email
 # --------------------------------------------------
